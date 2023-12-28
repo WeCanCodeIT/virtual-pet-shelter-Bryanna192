@@ -3,12 +3,65 @@
  */
 package virtual.pet.shelter;
 
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Woof!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        VirtualPetShelter Shelter = new VirtualPetShelter();
+        VirtualPet Pet1 = new VirtualPet("cat", "Mika", 50, 50, 100);
+        VirtualPet Pet2 = new VirtualPet("dog", "Scrappie", 50, 50, 100);
+        VirtualPet Pet3 = new VirtualPet("dog", "Mocha", 50, 50, 100);
+        Shelter.AddPet(Pet1);
+        Shelter.AddPet(Pet2);
+        Shelter.AddPet(Pet3);
+    
+            Scanner scan = new Scanner(System.in);
+        boolean game = true;
+        while(game){
+            System.out.println("Hello, welcome to your virtual pet shelter. Here you can feed, hydrate, or play with your pets. Type 1 to feed. Type 2 to hydrate. Type 3 to play. Type 4 to quit the game. Type 5 to add a pet to the shelter. Type 6 to adopt a pet.");
+            int num = Integer.parseInt(scan.nextLine());
+            switch (num) {
+                case 1: Shelter.FeedAllPets();
+                Shelter.DisplayStats();
+                    break;
+                case 2: Shelter.WaterAllPets();
+                Shelter.DisplayStats();
+                    break;
+                case 3: Shelter.PlayWithPets();
+                Shelter.DisplayStats();
+                    break;
+                case 4: game = false;
+                    System.out.println("See you later!");
+                    break;
+                case 5: System.out.println("Type in species"); 
+                String species = scan.nextLine();
+                System.out.println("type in name");
+                String Name = scan.nextLine();
+                System.out.println("insert hunger level");
+                int Hunger = Integer.parseInt(scan.nextLine());
+                System.out.println("insert thirst level");
+                int Thirst = Integer.parseInt(scan.nextLine());
+                System.out.println("insert boredom level");
+                int Boredom = Integer.parseInt(scan.nextLine());
+                VirtualPet newPet = new VirtualPet(species, Name, Hunger, Thirst, Boredom);
+                Shelter.AddPet(newPet);
+                System.out.println("Pet Successfully Added!");
+                Shelter.DisplayStats();
+                    break;
+                case 6: 
+                Shelter.DisplayStats();
+                System.out.println("Who do you wish to adopt? Please type their name.");
+                String petName = scan.nextLine();
+                Shelter.AdoptPet(petName);
+                Shelter.DisplayStats();
+                    break;
+                default: System.out.println("Invalid action");
+                    break;
+                    
+            }
+            Shelter.TickAllPets();
+        }
+
     }
 }
